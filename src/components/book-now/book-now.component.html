@@ -59,7 +59,7 @@
           </option>
           } @else {@for (doc of doctors; track doc.id) {
           <option [value]="doc.id">
-            {{ doc.name }}
+            {{ doc.user.name }}
           </option>
           }}
         </select>
