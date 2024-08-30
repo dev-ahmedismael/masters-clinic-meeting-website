@@ -1,0 +1,64 @@
+<section class="w-full flex justify-center items-center">
+  <div class="p-5 bg-white opacity-80 shadow rounded-lg">
+    <div class="flex justify-center mb-10">
+      <img ngSrc="assets/images/logo.png" alt="logo" width="60" height="60" />
+    </div>
+
+    <!-- Form -->
+
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      class="grid grid-cols-1 md:grid-cols-2 gap-5"
+    >
+      <div>
+        <label for="name">الاسم</label>
+        <input type="text" name="name" id="name" formControlName="name" />
+      </div>
+
+      <div>
+        <label for="phone">رقم الجوال</label>
+        <input type="text" name="phone" id="phone" formControlName="phone" />
+      </div>
+
+      <div>
+        <label for="email">البريد الإلكتروني </label>
+        <input type="text" name="email" id="email" formControlName="email" />
+      </div>
+
+      <div>
+        <label for="subject"> موضوع الرسالة</label>
+        <input
+          type="text"
+          name="subject"
+          id="subject"
+          formControlName="subject"
+        />
+      </div>
+
+      <div class="md:col-span-2">
+        <label for="message"> الرسالة</label>
+        <textarea
+          rows="3"
+          type="text"
+          name="message"
+          id="message"
+          formControlName="message"
+          class="w-full"
+        ></textarea>
+      </div>
+
+      <div class="md:col-span-2">
+        <button type="submit" [disabled]="form.invalid" class="w-full">
+          ارسال
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+@if (errorMessage) {
+<app-error-message [message]="errorMessage"></app-error-message>
+} @if (successMessage) {
+<app-success-message [message]="successMessage"></app-success-message>
+}

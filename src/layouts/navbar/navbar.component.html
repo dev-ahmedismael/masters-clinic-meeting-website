@@ -1,0 +1,19 @@
+<nav class="flex justify-between items-center container py-2">
+  <a routerLink="/">
+    <img ngSrc="assets/images/logo.png" alt="logo" width="80" height="80" />
+  </a>
+  <div class="text-primary flex items-center gap-3 h-full">
+    <a routerLink="/contact-us">
+      <p>تواصل معنا</p>
+    </a>
+    @for (item of socialMediaIcons; track item.id) {
+    <a [href]="item.url">
+      <div
+        class="bg-white rounded-full w-8 h-8 flex justify-center items-center"
+      >
+        <fa-icon [icon]="item.icon"></fa-icon>
+      </div>
+    </a>
+    }
+  </div>
+</nav>
