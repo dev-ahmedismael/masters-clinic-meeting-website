@@ -14,16 +14,28 @@
       <div>
         <label for="name">الاسم</label>
         <input type="text" name="name" id="name" formControlName="name" />
+        @if (name.invalid && (name.touched || name.dirty)) {
+        <p class="text-rose-600">هذا الحقل إلزامي</p>
+        }
       </div>
 
       <div>
         <label for="phone">رقم الجوال</label>
-        <input type="text" name="phone" id="phone" formControlName="phone" />
+        <input type="text" name="phone" id="phone" formControlName="phone" />@if
+        (phone.invalid && (phone.touched || phone.dirty)) {
+        <p class="text-rose-600">هذا الحقل إلزامي</p>
+        }
       </div>
 
       <div>
         <label for="email">البريد الإلكتروني </label>
-        <input type="text" name="email" id="email" formControlName="email" />
+        <input type="text" name="email" id="email" formControlName="email" />@if
+        (email.invalid && (email.touched || email.dirty)) { @if
+        (email.hasError('required')) {
+        <p class="text-rose-600">هذا الحقل إلزامي</p>
+        } @if (email.hasError('email')) {
+        <p class="text-rose-600">ادخل بريد إلكتروني صالح</p>
+        } }
       </div>
 
       <div>
@@ -33,7 +45,9 @@
           name="subject"
           id="subject"
           formControlName="subject"
-        />
+        />@if (subject.invalid && (subject.touched || subject.dirty)) {
+        <p class="text-rose-600">هذا الحقل إلزامي</p>
+        }
       </div>
 
       <div class="md:col-span-2">
@@ -45,7 +59,10 @@
           id="message"
           formControlName="message"
           class="w-full"
-        ></textarea>
+        ></textarea
+        >@if (message.invalid && (message.touched || message.dirty)) {
+        <p class="text-rose-600">هذا الحقل إلزامي</p>
+        }
       </div>
 
       <div class="md:col-span-2">

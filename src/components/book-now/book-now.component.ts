@@ -32,6 +32,15 @@ export class BookNowComponent {
   departments: any = [];
   doctors: any = [];
 
+  today = new Date().toISOString().split('T')[0];
+
+  checkAvailability(event: any) {
+    const date = new Date(event.target.value);
+    if (date.getDay() == 5) {
+      event.target.value = 0;
+      this.errorMessage = 'الخدمة غير متوفرة يوم الجمعة';
+    }
+  }
   times = [
     { time: '10:00 ص', value: '10:00:00' },
     { time: '10:30 ص', value: '10:30:00' },
@@ -68,7 +77,33 @@ export class BookNowComponent {
   successMessage: string | null = null;
   errorMessage: string | null = null;
 
+  get branch() {
+    return this.form.controls['branch'];
+  }
+  get department() {
+    return this.form.controls['department'];
+  }
+  get doctor_id() {
+    return this.form.controls['doctor_id'];
+  }
+  get patient_name() {
+    return this.form.controls['patient_name'];
+  }
+  get patient_phone() {
+    return this.form.controls['patient_phone'];
+  }
+  get patient_email() {
+    return this.form.controls['patient_email'];
+  }
+  get date() {
+    return this.form.controls['date'];
+  }
+  get time() {
+    return this.form.controls['time'];
+  }
+
   submit() {
+    this.form.markAllAsTouched();
     this.reservationsService.addReservation(this.form.value).subscribe({
       next: (res: any) => {
         this.router.navigate(['/reservation-info'], {
@@ -106,11 +141,9 @@ export class BookNowComponent {
       doctor_id: ['', Validators.required],
       patient_name: ['', Validators.required],
       patient_phone: ['', Validators.required],
-      patient_email: ['', Validators.required, Validators.email],
+      patient_email: ['', [Validators.required, Validators.email]],
       date: ['', Validators.required],
       time: ['', Validators.required],
-      status: ['pending'],
-      notes: [''],
     });
   }
 }

@@ -34,10 +34,27 @@ export class ContactUsComponent {
 
   form!: FormGroup;
 
+  get name() {
+    return this.form.controls['name'];
+  }
+  get phone() {
+    return this.form.controls['phone'];
+  }
+  get email() {
+    return this.form.controls['email'];
+  }
+  get subject() {
+    return this.form.controls['subject'];
+  }
+  get message() {
+    return this.form.controls['message'];
+  }
+
   successMessage: string | null = null;
   errorMessage: string | null = null;
 
   submit() {
+    this.form.markAllAsTouched();
     this.messagesService.send(this.form.value).subscribe({
       next: (res: any) => {
         this.successMessage = res.message;
@@ -61,7 +78,7 @@ export class ContactUsComponent {
     this.form = this.fb.group({
       name: ['', Validators.required],
       phone: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       subject: ['', Validators.required],
       message: ['', Validators.required],
     });

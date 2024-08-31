@@ -26,6 +26,10 @@
           </option>
           }
         </select>
+
+        @if (branch.invalid && (branch.dirty || branch.touched)) {
+        <p class="text-red-600">هذا الحقل إلزامي</p>
+        }
       </div>
 
       <div>
@@ -43,6 +47,9 @@
           </option>
           }
         </select>
+        @if (department.invalid && (department.dirty || department.touched)) {
+        <p class="text-red-600">هذا الحقل إلزامي</p>
+        }
       </div>
 
       <div>
@@ -63,6 +70,9 @@
           </option>
           }}
         </select>
+        @if (doctor_id.invalid && (doctor_id.dirty || doctor_id.touched)) {
+        <p class="text-red-600">هذا الحقل إلزامي</p>
+        }
       </div>
 
       <div>
@@ -73,6 +83,10 @@
           id="patient_name"
           formControlName="patient_name"
         />
+        @if (patient_name.invalid && (patient_name.dirty ||
+        patient_name.touched)) {
+        <p class="text-red-600">هذا الحقل إلزامي</p>
+        }
       </div>
       <div>
         <label for="patient_phone">رقم الجوال</label>
@@ -82,6 +96,10 @@
           id="patient_phone"
           formControlName="patient_phone"
         />
+        @if (patient_phone.invalid && (patient_phone.dirty ||
+        patient_phone.touched)) { @if (patient_phone.hasError('required')) {
+        <p class="text-red-600">هذا الحقل إلزامي</p>
+        } }
       </div>
 
       <div>
@@ -91,12 +109,26 @@
           name="patient_email"
           id="patient_email"
           formControlName="patient_email"
-        />
+        />@if (patient_email.invalid && (patient_email.dirty ||
+        patient_email.touched)) { @if (patient_email.hasError('required')) {
+        <p class="text-red-600">هذا الحقل إلزامي</p>
+        } @if (patient_email.hasError('email')) {
+        <p class="text-red-600">ادخل بريد إلكتروني صالح.</p>
+        } }
       </div>
 
       <div>
         <label for="date">تاريخ الحجز</label>
-        <input type="date" name="date" formControlName="date" />
+        <input
+          type="date"
+          name="date"
+          formControlName="date"
+          [min]="today"
+          (change)="checkAvailability($event)"
+        />
+        @if (date.invalid && (date.dirty || date.touched)) {
+        <p class="text-red-600">هذا الحقل إلزامي</p>
+        }
       </div>
 
       <div>
@@ -106,9 +138,10 @@
           <option [value]="time.value">{{ time.time }}</option>
           }
         </select>
+        @if (time.invalid && (time.dirty || time.touched)) {
+        <p class="text-red-600">هذا الحقل إلزامي</p>
+        }
       </div>
-
-      <div></div>
 
       <div class="md:col-span-2">
         <button type="submit" [disabled]="form.invalid" class="w-full">
